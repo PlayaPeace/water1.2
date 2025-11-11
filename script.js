@@ -7,6 +7,7 @@ let floorHeight;
 let population;
 let numDevices;
 let numApartments;
+let qDB0Input;
 
 let Htr;
 let Hnijt;
@@ -80,6 +81,11 @@ for (let elem = 0; elem < inputs.length; elem++){
             if (this.hasAttribute('data-num-apartments')) {
                 numApartments = this.value;
                 allValue('[data-num-apartments]', numApartments);
+            }
+
+            if (this.hasAttribute('data-qDB0-input')) {
+                qDB0Input = this.value;
+                allValue('[data-qDB0-input]', qDB0Input);
             }
 
             if (numFloors) {
