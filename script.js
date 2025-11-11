@@ -8,6 +8,7 @@ let population;
 let numDevices;
 let numApartments;
 let qDB0Input;
+let qDB1Input;
 
 let Htr;
 let Hnijt;
@@ -85,6 +86,7 @@ for (let elem = 0; elem < inputs.length; elem++){
 
             if (this.hasAttribute('data-qDB0-input')) {
                 qDB0Input = this.value;
+                qDB1Input = Number(qDB0Input) - 70;
                 allValue('[data-qDB0-input]', qDB0Input);
             }
 
@@ -107,7 +109,7 @@ for (let elem = 0; elem < inputs.length; elem++){
                 calculate(formulaHnijtResult, hiddenFormulaCont,formulaCont,canvasCont);
             }
 
-            if (numBuildings && numSections && numFloors && numApartments && population) {
+            if (numBuildings && numSections && numFloors && numApartments && population && qDB0Input && qDB1Input) {
                 U = parseFloat(numBuildings) * parseFloat(numSections) * parseFloat(numFloors) * parseFloat(numApartments) * parseFloat(population);
                 U = Number(U.toFixed(2));
                 let uCalculate = numBuildings + " * " + numSections + " * " + numFloors + " * " + numApartments + " * " + population + " = " + U;
@@ -116,18 +118,14 @@ for (let elem = 0; elem < inputs.length; elem++){
                 allValue('[u]', U.toString() + " чел")
                 allValue('[u-3]', U.toString() + " чел. (количество водопотребителей)")
 
-                qb0 = 180*U/1000;
+                qb0 = Number(qDB0Input)*U/1000;
                 qb0 = Number(qb0.toFixed(2)); //to fixed
-                qb1 = 110*U/1000;
+                qb1 = Number(qDB1Input)*U/1000;
                 qb1 = Number(qb1.toFixed(2)); //to fixed
-                let qb0Calculate = "180 * " + U + " /1000" + " = " + qb0;
-                allValue('[qb0-calculate]', qb0Calculate);
-                let qb1Calculate = "110 * " + U + " /1000" + " = " + qb1;
-                allValue('[qb1-calculate]', qb1Calculate);
             }
 
-            if (U && qb0) {
-                let formulaQb0Text = `q^{\\text{b0}}_{\\text{сут}} = \\frac{q^{\\text{B0}}_{\\text{сут}} * U}{1000} = \\frac{180 * ${U}}{1000} = ${qb0} \\frac{\\text{м³}}{\\text{сут}}`;
+            if (U && qb0 && qDB0Input) {
+                let formulaQb0Text = `q^{\\text{b0}}_{\\text{сут}} = \\frac{q^{\\text{B0}}_{\\text{сут}} * U}{1000} = \\frac{${qDB0Input} * ${U}}{1000} = ${qb0} \\frac{\\text{м³}}{\\text{сут}}`;
                 hiddenFormulaCont = 'hiddenFormulaQb0';
                 formulaCont='formulaQb0';
                 canvasCont='canvasQb0';
@@ -149,8 +147,23 @@ for (let elem = 0; elem < inputs.length; elem++){
                 allValue('Qb0d-table', qb0);
             }
 
-            if(U && qb1) {
-                let formulaQb1Text = `q^{\\text{b1}}_{\\text{сут}} = \\frac{q^{\\text{B1}}_{\\text{сут}} * U}{1000} = \\frac{110 * ${U}}{1000} = ${qb1} \\frac{\\text{м³}}{\\text{сут}}`;
+            if (qDB0Input && qDB1Input) {
+                let formulaQdB0Text = `q_{\\text{сут}}^{\\text{B0}} = ${qDB0Input} \\frac{\\text{л}}{\\text{сут}}`;
+                hiddenFormulaCont = 'hiddenFormulaQdB0';
+                formulaCont='formulaQdB0';
+                canvasCont='canvasQdB0';
+                calculate(formulaQdB0Text, hiddenFormulaCont,formulaCont,canvasCont);
+
+                let formulaQdB1Text = `q_{\\text{сут}}^{\\text{B1}} = ${qDB0Input} - 70 = ${qDB1Input} \\frac{\\text{л}}{\\text{сут}}`;
+                hiddenFormulaCont = 'hiddenFormulaQdB1';
+                formulaCont='formulaQdB1';
+                canvasCont='canvasQdB1';
+                calculate(formulaQdB1Text, hiddenFormulaCont,formulaCont,canvasCont);
+
+            }
+
+            if(U && qb1 && qDB1Input) {
+                let formulaQb1Text = `q^{\\text{b1}}_{\\text{сут}} = \\frac{q^{\\text{B1}}_{\\text{сут}} * U}{1000} = \\frac{${qDB1Input} * ${U}}{1000} = ${qb1} \\frac{\\text{м³}}{\\text{сут}}`;
                 hiddenFormulaCont = 'hiddenFormulaQb1';
                 formulaCont='formulaQb1';
                 canvasCont='canvasQb1';
@@ -401,17 +414,17 @@ formulaCont='formulaPh';
 canvasCont='canvasPh';
 calculate(formulaPhText, hiddenFormulaCont,formulaCont,canvasCont);
 
-let formulaQdB0Text = `q_{\\text{сут}}^{\\text{B0}} = 180 \\frac{\\text{л}}{\\text{сут}}`;
-hiddenFormulaCont = 'hiddenFormulaQdB0';
-formulaCont='formulaQdB0';
-canvasCont='canvasQdB0';
-calculate(formulaQdB0Text, hiddenFormulaCont,formulaCont,canvasCont);
-
-let formulaQdB1Text = `q_{\\text{сут}}^{\\text{B1}} = 110 \\frac{\\text{л}}{\\text{сут}}`;
-hiddenFormulaCont = 'hiddenFormulaQdB1';
-formulaCont='formulaQdB1';
-canvasCont='canvasQdB1';
-calculate(formulaQdB1Text, hiddenFormulaCont,formulaCont,canvasCont);
+// let formulaQdB0Text = `q_{\\text{сут}}^{\\text{B0}} = 180 \\frac{\\text{л}}{\\text{сут}}`;
+// hiddenFormulaCont = 'hiddenFormulaQdB0';
+// formulaCont='formulaQdB0';
+// canvasCont='canvasQdB0';
+// calculate(formulaQdB0Text, hiddenFormulaCont,formulaCont,canvasCont);
+//
+// let formulaQdB1Text = `q_{\\text{сут}}^{\\text{B1}} = 110 \\frac{\\text{л}}{\\text{сут}}`;
+// hiddenFormulaCont = 'hiddenFormulaQdB1';
+// formulaCont='formulaQdB1';
+// canvasCont='canvasQdB1';
+// calculate(formulaQdB1Text, hiddenFormulaCont,formulaCont,canvasCont);
 
 let formulaTableQdText = `q_{\\text{сут.}} \\text{, } \\frac{\\text{м³}}{\\text{сут}}`;
 hiddenFormulaCont = 'hiddenFormulaTableQd';
