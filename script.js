@@ -544,7 +544,7 @@ for (let elem = 0; elem < inputs.length; elem++){
             if (hTr && hGInput) {
                 let hP = Number(hTr) - Number(hGInput);
                 hP = Number(hP.toFixed(2))
-                let text = hTr + " - " + Number(hGInput.toFixed(3)) + " = " + hP;
+                let text = hTr + " - " + hGInput + " = " + hP;
                 let element = document.getElementById('h-p-calculate');
                 if (element) element.textContent = text;
 
