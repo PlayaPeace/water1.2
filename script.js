@@ -368,7 +368,7 @@ for (let elem = 0; elem < inputs.length; elem++){
                     if (text) text.textContent = resultText;
 
                     text = document.getElementById('h-l-text');
-                    if (text) text.textContent = hL;
+                    if (text) text.textContent = Number(result.i.toFixed(2));
                 }
 
                 //
