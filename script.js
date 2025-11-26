@@ -15,6 +15,8 @@ let hGInput;
 let dInput;
 let numResidents1;
 let numDevices1;
+//new part 25.11
+let h2Input;
 
 let h1;
 let h2;
@@ -140,6 +142,27 @@ for (let elem = 0; elem < inputs.length; elem++){
             if (this.hasAttribute('data-numDevices1-input')) {
                 numDevices1 = this.value;
                 allValue('[data-numDevices1-input]', numDevices1);
+            }
+
+            //new part 25.11
+            if (this.hasAttribute('data-h2-input')) {
+                h2Input = this.value;
+                allValue('[data-h2-input]', h2Input);
+
+                let text = document.getElementById('h2-1');
+                if (text) text.textContent = h2Input;
+
+                text = document.getElementById('h2-2');
+                if (text) text.textContent = h2Input;
+            }
+
+            //new part 25.11
+            if (h2Input) {
+                let h1 = h2Input - 0.3;
+                h1 = Number(h1.toFixed(3));
+
+                let text = document.getElementById('h1');
+                if (text) text.textContent = h1;
             }
 
             if (numResidents1 && numDevices1 && Nb0) {
@@ -310,6 +333,19 @@ for (let elem = 0; elem < inputs.length; elem++){
                 formulaCont='formulaA1NP';
                 canvasCont='canvasA1NP';
                 calculate(formulaA1NPText, hiddenFormulaCont,formulaCont,canvasCont);
+
+                //new part 25.11
+                let text = document.getElementById('P-s-B0-1');
+                if (text) text.textContent = Psb0;
+
+                text = document.getElementById('P-s-B0-2');
+                if (text) text.textContent = Psb0;
+
+                text = document.getElementById('N-B0');
+                if (text) text.textContent = Nb0;
+
+                text = document.getElementById('NP');
+                if (text) text.textContent = NP1;
             }
 
             if (NP1) {
@@ -391,6 +427,27 @@ for (let elem = 0; elem < inputs.length; elem++){
 
                     text = document.getElementById('v-text');
                     if (text) text.textContent = Number(result.v.toFixed(3));
+
+                    //new part 25.11
+                    text = document.getElementById('a-1');
+                    if (text) text.textContent = a;
+
+                    text = document.getElementById('a-2');
+                    if (text) text.textContent = a;
+
+                    let qTot = 5 * 0.3 * a;
+                    qTot = Number(qTot.toFixed(2));
+
+                    text = document.getElementById('q-tot-1');
+                    if (text) text.textContent = qTot;
+
+                    text = document.getElementById('q-tot-2');
+                    if (text) text.textContent = qTot;
+
+                    let qS = Number(qTot) + 1.6;
+                    qS = Number(qS.toFixed(2));
+                    text = document.getElementById('q-s');
+                    if (text) text.textContent = qS;
                 }
 
                 //
@@ -576,6 +633,20 @@ for (let elem = 0; elem < inputs.length; elem++){
         }
     });
 }
+
+//new part 25.11
+let formulaText = `q^{\\text{sl}} = \\frac{q^{\\text{tot}}_{\\text{hr}}}{3.6} + k_s q^s_0, л/c.`;
+hiddenFormulaCont = 'hiddenFormulaQsl';
+formulaCont='formulaQsl';
+canvasCont='canvasQsl';
+calculate(formulaText, hiddenFormulaCont,formulaCont,canvasCont);
+
+formulaText = `V \\sqrt{\\frac{h}{d}} \\geq k, (4.2)`;
+hiddenFormulaCont = 'hiddenFormulaV';
+formulaCont='formulaV';
+canvasCont='canvasV';
+calculate(formulaText, hiddenFormulaCont,formulaCont,canvasCont);
+//
 
 let formulaQdText = `q_{\\text{сут}} = \\frac{q_\\text{0 сут} * U}{1000}`;
 hiddenFormulaCont = 'hiddenFormulaQd';
