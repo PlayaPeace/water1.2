@@ -196,25 +196,6 @@ for (let elem = 0; elem < inputs.length; elem++){
                 if (text) text.textContent = h1;
             }
 
-            //new part 30.11
-            if (nInput && Psb0) {
-                let np = Number((nInput * Psb0).toFixed(3));
-                let text = document.getElementById('np-table2');
-                if (text) text.textContent = np;
-
-                let a = findAlphaByNP(np);
-                text = document.getElementById('a-table2');
-                if (text) text.textContent = a;
-
-                let qSB0 = Number((5 * 0.3 * a).toFixed(3));
-                text = document.getElementById('qSB0-table2');
-                if (text) text.textContent = qSB0;
-
-                let qSK1 = Number((1.6 + qSB0).toFixed(3));
-                text = document.getElementById('qSK1-table2');
-                if (text) text.textContent = qSK1;
-            }
-
             if (numResidents1 && numDevices1 && Nb0) {
                 let p = 5.1*numResidents1/0.2/3600/Nb0;
                 p = Number(p.toFixed(3));
@@ -683,6 +664,25 @@ for (let elem = 0; elem < inputs.length; elem++){
 
                 element = document.getElementById('h-p-text');
                 if (element) element.textContent = hP;
+            }
+
+            //new part 30.11
+            if (nInput && Psb0) {
+                let np = Number((nInput * Psb0).toFixed(3));
+                let text = document.getElementById('np-table2');
+                if (text) text.textContent = np;
+
+                let a = findAlphaByNP(np);
+                text = document.getElementById('a-table2');
+                if (text) text.textContent = a;
+
+                let qSB0 = Number((5 * 0.3 * a).toFixed(3));
+                text = document.getElementById('qSB0-table2');
+                if (text) text.textContent = qSB0;
+
+                let qSK1 = Number((1.6 + qSB0).toFixed(3));
+                text = document.getElementById('qSK1-table2');
+                if (text) text.textContent = qSK1;
             }
         }
     });
